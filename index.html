@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <title>Master of Puppets</title>
+  <style type="text/css" media="screen">
+
+  </style>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script src="/assets/js/cx-tagtools-end-1.4.js?v=20161229"></script>
+  <script>
+    function sendCXPageView() {
+      cX.initializePage();
+      cX.setSiteId('1130534943865611190');
+      cX.sendPageViewEvent();
+    }
+  </script>
+</head>
+
+<body>
+  <div>
+      <a href="index.html">Home</a>
+      </br>
+      </br>
+      <a href="#page=content.html">Click to invoke Sandman</a>
+  </div>
+  <h1>The Thing That Should Not Be</h1>
+  <div id='content-container'>
+  </div>
+  <script>
+    function doAjaxCall() {
+      var hashArgs = cX.parseHashArgs();
+      var uri = hashArgs.page;
+      jQuery.ajax({
+          url: uri,
+          dataType: 'html',
+          cache: true,
+          async: true
+      }).done(function(data) {
+        jQuery('#content-container').html(data);
+        sendCXPageView();
+        console.log("New PageViewSent via Ajax!");
+      }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log("Content could not be loaded!");
+            console.log(textStatus);
+        });
+    }
+
+    // Load a new page every time the hash changes
+    $(window).on('hashchange', doAjaxCall);
+
+  </script>
+</body>
+
+</html>
